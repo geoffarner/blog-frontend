@@ -4,14 +4,16 @@ import axios from "axios";
 export default {
   data: function () {
     return {
+      message: "Welcome to a Blog Post",
       posts: [],
     };
   },
   created: function () {
-    this.postsIndex();
+    this.indexPosts();
   },
+
   methods: {
-    postsIndex: function () {
+    indexPosts: function () {
       axios.get("/posts.json").then((response) => {
         this.posts = response.data;
         console.log("All Posts:", this.posts);
@@ -22,8 +24,15 @@ export default {
 </script>
 
 <template>
-  <div class="posts">
-    <h1>{{ posts }}</h1>
+  <div v-for="post in posts" v-bind:key="post.id">
+    <router-link v-bind:to="`/posts/${post.id}`">
+      <h1>{{ post.title }}</h1>
+    </router-link>
+    <img :src="post.image" alt="Interesting Blog" />
+    <p>
+      {{ post.body }}
+    </p>
+    <p>{{ post.image }}</p>
   </div>
 </template>
 
