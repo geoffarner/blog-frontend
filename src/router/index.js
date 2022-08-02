@@ -7,6 +7,8 @@ import LoginView from "../views/LoginView.vue";
 import LogoutView from "../views/LogoutView.vue";
 import PostsNew from "../views/PostsNew.vue";
 import PostsShow from "../views/PostsShow.vue";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const routes = [
   { path: "/", name: "home", component: HomeView },
