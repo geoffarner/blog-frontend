@@ -18,6 +18,7 @@ export default {
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
+          this.status = error.response.status;
         });
     },
   },
@@ -26,6 +27,7 @@ export default {
 
 <template>
   <div class="posts-new">
+    <img v-if="status" :src="`https://http.dog/${status}.jpg`" alt="" />
     <form v-on:submit.prevent="createPost()">
       <h1>New Post</h1>
       <ul>

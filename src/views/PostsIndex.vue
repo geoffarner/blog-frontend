@@ -24,10 +24,13 @@ export default {
 </script>
 
 <template>
-  <div v-for="post in posts" v-bind:key="post.id">
-    <router-link v-bind:to="`/posts/${post.id}`">
-      <h1>{{ post.title }}</h1>
-    </router-link>
+  <div
+    v-for="post in posts"
+    v-bind:key="post.id"
+    v-on:click="currentPost = post"
+    v-bind:class="{ selected: post === currentPost }"
+  >
+    <h1>{{ post.title }}</h1>
     <img :src="post.image" alt="Interesting Blog" />
     <p>
       {{ post.body }}

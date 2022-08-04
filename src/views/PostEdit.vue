@@ -10,13 +10,13 @@ export default {
   },
   created: function () {
     axios.get("/posts/" + this.$route.params.id + ".json").then((response) => {
-      this.editRecipeParams = response.data;
+      this.editPostParams = response.data;
     });
   },
   methods: {
     updatePost: function () {
       axios
-        .patch("/posts/" + this.$route.params.id + ".json", this.editRecipeParams)
+        .patch("/posts/" + this.$route.params.id + ".json", this.editPostParams)
         .then((response) => {
           console.log(response.data);
           this.$router.push("/posts");

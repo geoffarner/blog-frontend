@@ -55,19 +55,12 @@ export default {
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
-    <h2>New Post</h2>
-    <div>
-      Title:
-      <input type="text" v-model="newPostParams.title" />
-      Body:
-      <input type="text" v-model="newPostParams.body" />
-      Image:
-      <input type="text" v-model="newPostParams.image" />
-    </div>
-    <button v-on:click="createPost()">Create</button>
+
     <h2>All Posts</h2>
     <div v-for="post in posts" v-bind:key="post.id">
-      <img :src="post.image_url" alt="interesting post" />
+      **************************************************
+      <h4>{{ post.title }}</h4>
+      <img :src="post.image" alt="interesting post" />
     </div>
     <dialog id="post-details">
       <form method="dialog">

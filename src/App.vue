@@ -1,3 +1,21 @@
+<script>
+export default {
+  data: function () {
+    return {
+      isLoggedIn: false,
+      flashMessage: "",
+    };
+  },
+  watch: {
+    $route: function () {
+      this.isLoggedIn = !!localStorage.jwt;
+      this.flashMessage = localStorage.getItem("flashMessage");
+      this.flashMessage = localStorage.removeItem("flashMessage");
+    },
+  },
+};
+</script>
+
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -25,10 +43,6 @@
           <li class="nav-item">
             <a class="nav-link active" href="/posts/new">Post New</a>
           </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" href="/signup">Sign Up</a>
-          </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -38,13 +52,13 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Dropdown
+              New User
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/login">Login</a></li>
-              <li><a class="dropdown-item" href="/signup">Sign Up</a></li>
+              <li><a v-if="!isLoggedIn" class="dropdown-item" href="/login">Login</a></li>
+              <li><a v-if="!isLoggedIn" class="dropdown-item" href="/signup">Sign Up</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              <li><a v-if="isLoggedIn" class="dropdown-item" href="/logout">Logout</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -58,29 +72,21 @@
       </div>
     </div>
   </nav>
-  <!-- old nav bar -->
-  <!-- <nav>
-    <router-link to="/">Home</router-link>
-    |
-    <router-link to="/posts">Posts</router-link>
-    |
-    <router-link to="/posts/new">Post New</router-link>
-    |
-    <router-link to="/signup">Sign up</router-link>
-    |
-    <a href="/login">Login</a>
-    |
-    <a href="/logout">Logout</a>
-  </nav> -->
+  <div v-if="flashMessage" class="alert alert success">
+    {{ flashMessage }}
+  </div>
   <router-view />
-  <footer><h1>Amanda's Foot</h1></footer>
+  <footer>
+    <h1>Amanda's Foot</h1>
+    <a class="nav-link" href="/">Back</a>
+  </footer>
 </template>
 
 <style>
 .body {
   font-family: Tahoma, Verdana, Segoe, sans-serif;
   text-align: center;
-  color: blue;
+  color: rgb(129, 88, 218);
   background-image: url("./assets/pexels-photo-673648.jpeg");
 }
 
@@ -92,6 +98,6 @@
 #app {
   font-family: Tahoma, Verdana, Segoe, sans-serif;
   text-align: center;
-  color: blue;
+  color: rgb(0, 255, 68);
 }
 </style>
